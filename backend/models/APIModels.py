@@ -3,7 +3,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class ApiInfo(models.Model):
     ApiName=models.CharField(max_length=32,verbose_name="接口名称",default="请输入接口名称")
     ApiDescribe=models.TextField(max_length=255,verbose_name="接口描述",default="请输入接口描述")
@@ -18,4 +17,8 @@ class ApiInfo(models.Model):
 
     def __str__(self):
         return self.ApiName
+
+
+
+
 
