@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+from datetime import timedelta
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 #这个变量代表的是整个项目的根路径
 #os.path.abspath()这个函数可以获取文件的路径，而且是真实路径，而不是调用者的路径
@@ -36,15 +36,18 @@ ALLOWED_HOSTS = ["*"]
 # 新建的 app 如果不加到 INSTALL_APPS 中的话，django 就不能自动找到app中的模板文件(app-name/templates/下的文件)
 # 和静态文件(app-name/static/中的文件)
 INSTALLED_APPS = [
+    'simpleui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
+
     'backend.apps.BackendConfig',
 ]
 # 接下来是高级的中间件，一般中小型项目对这个的使用率不高。
@@ -73,7 +76,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # djangorestframework_simplejwt JWT认证
     )
 }
 
@@ -162,3 +165,46 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#JWT认证系统
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+#Simple UI设置
+#默认主题
+SIMPLEUI_DEFAULT_THEME = 'admin.lte.css'
+#自定义SIMPLEUI的Logo
+SIMPLEUI_LOGO = 'https://avatars2.githubusercontent.com/u/13655483?s=60&v=4'
+#首页标题
+SIMPLEUI_HOME_TITLE = '投票系统管理'
+#首页图标
+SIMPLEUI_HOME_ICON = 'fa fa-user'
+#显示服务器信息
+SIMPLEUI_HOME_INFO = True
+#快速操作
+SIMPLEUI_HOME_QUICK = True
+#使用分析
+SIMPLEUI_ANALYSIS = True
