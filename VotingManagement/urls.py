@@ -27,7 +27,13 @@ from backend import views
 
 
 router = routers.DefaultRouter()
-router.register('ApiInfo',views.APIInfoViewSet)
+
+
+router.register('User',views.User_ViewSet)
+router.register('Role',views.Role_ViewSet)
+router.register('Permission',views.Permission_ViewSet)
+router.register('Role_User',views.Role_User_ViewSet)
+router.register('Permission_Role',views.Permission_Role_ViewSet)
 
 schema_view=get_schema_view(
     # 具体定义详见 [Swagger/OpenAPI 规范](https://swagger.io/specification/#infoObject)
@@ -47,13 +53,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('backend.urls')),
 
-
     # drf 认证url  drf token获取的url
     path('',include('backend.urls')),
 
     #配置Simple JWT
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # 配置django-rest-framwork API路由
     path('api/', include(router.urls)),
     #配置JWT用户登录认证
@@ -62,12 +65,8 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # 配置django-rest-framwork API路由
-    path('api/', include(router.urls)),
-
     #配置drf-yasg路由
     re_path('^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-
 ]
