@@ -66,20 +66,6 @@ MIDDLEWARE = [
 # 在这里指定根路由文件。Django当中的路由是一层一层的，但是总要有一个根路由来做总分配。这里就是设置根路由文件名称的。
 ROOT_URLCONF = 'VotingManagement.urls'
 
-
-# 可根据自己的使用情况，删除不需要的认证方式
-# 使用全局配置的话，是每个接口都要求认证
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',     #权限Permissions
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',  # djangorestframework_simplejwt JWT认证
-    )
-}
-
 # 关键点只有一个：DIRS
 #
 # 这个key的value是一个list，里面放的是所有templates的路径。
@@ -165,6 +151,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#自定义的User
+AUTH_USER_MODEL = 'backend.UserTable'
+# 可根据自己的使用情况，删除不需要的认证方式
+# 使用全局配置的话，是每个接口都要求认证
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',     #权限Permissions
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # djangorestframework_simplejwt JWT认证
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    )
+}
 
 #JWT认证系统
 SIMPLE_JWT = {
