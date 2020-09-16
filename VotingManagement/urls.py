@@ -28,12 +28,11 @@ from backend import views
 
 router = routers.DefaultRouter()
 
-# router.register('User',views.User_ViewSet)
-# router.register('Role',views.Role_ViewSet)
-# router.register('Permission',views.Permission_ViewSet)
-# router.register('Role_User',views.Role_User_ViewSet)
-# router.register('Permission_Role',views.Permission_Role_ViewSet)
-router.register('UserTable',views.UserTable_ViewSet)
+router.register('User',views.User_ViewSet)
+router.register('Role',views.Role_ViewSet)
+router.register('Permissions',views.Permissions_ViewSet)
+router.register('Role_User',views.Role_User_ViewSet)
+router.register('Permissions_Role',views.Permissions_Role_ViewSet)
 
 schema_view=get_schema_view(
     # 具体定义详见 [Swagger/OpenAPI 规范](https://swagger.io/specification/#infoObject)

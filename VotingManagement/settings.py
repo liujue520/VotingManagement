@@ -153,7 +153,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #自定义的User
-AUTH_USER_MODEL = 'backend.UserTable'
+AUTH_USER_MODEL = 'backend.User'
 # 可根据自己的使用情况，删除不需要的认证方式
 # 使用全局配置的话，是每个接口都要求认证
 REST_FRAMEWORK = {
