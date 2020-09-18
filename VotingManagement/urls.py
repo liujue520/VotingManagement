@@ -33,6 +33,7 @@ router.register('Role',views.Role_ViewSet)
 router.register('Permissions',views.Permissions_ViewSet)
 router.register('Role_User',views.Role_User_ViewSet)
 router.register('Permissions_Role',views.Permissions_Role_ViewSet)
+router.register('UserInfo',views.UserInfo_ViewSet)
 
 schema_view=get_schema_view(
     # 具体定义详见 [Swagger/OpenAPI 规范](https://swagger.io/specification/#infoObject)

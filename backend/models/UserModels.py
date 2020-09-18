@@ -46,11 +46,31 @@ class User(AbstractBaseUser,PermissionsMixin):
 
     class Meta:
         db_table='UserTable'
-        verbose_name='用户列表'
+        verbose_name='User_用户表'
         verbose_name_plural=verbose_name
 
     def __str__(self):
         return self.username
+
+#用户信息
+class UserInfo(models.Model):
+    UserInfoId = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    Company = models.CharField(max_length=32,verbose_name="公司",default="输入公司名")
+    SecondaryOrganization = models.CharField(max_length=32,verbose_name="二级组织",default="输入二级组织名")
+    TertiaryOrganization = models.CharField(max_length=32,verbose_name="三级组织",default="输入三级组织名")
+    FourOrganization = models.CharField(max_length=32,verbose_name="四级组织",default="输入四级组织名")
+    FiveOrganization = models.CharField(max_length=32,verbose_name="五级组织",default="输入五级组织名")
+    FileNumber = models.CharField(max_length=32,verbose_name="档案号",default="输入档案号")
+    EntryDate = models.DateField(auto_now = False,auto_now_add =False,verbose_name="入职时间")
+    sex = models.BooleanField(max_length=1, choices=((0, '男'), (1, '女'),), default=0,verbose_name='性别')
+    UserId = models.ForeignKey(to="User", on_delete=models.CASCADE)
+    class Meta:
+        db_table='UserInfo'
+        verbose_name='User_用户信息表'
+        verbose_name_plural=verbose_name
+
+    def __str__(self):
+        return self.FileNumber
 
 #角色表
 class Role(models.Model):
@@ -63,8 +83,8 @@ class Role(models.Model):
 
     class Meta:
         db_table='Role'
-        verbose_name='角色列表'
-        verbose_name_plural="角色列表"
+        verbose_name='User_角色表'
+        verbose_name_plural=verbose_name
 
     def __str__(self):
         return self.RoleName
@@ -80,8 +100,8 @@ class RoleUser(models.Model):
 
     class Meta:
         db_table='RoleUser'
-        verbose_name='用户角色表'
-        verbose_name_plural="用户角色表"
+        verbose_name='User_用户角色表'
+        verbose_name_plural=verbose_name
 
 class Permissions(models.Model):
     # 通用唯一识别码，设置为主键
@@ -93,8 +113,8 @@ class Permissions(models.Model):
 
     class Meta:
         db_table='Permission'
-        verbose_name='权限列表'
-        verbose_name_plural="权限列表"
+        verbose_name='User_权限表'
+        verbose_name_plural=verbose_name
 
     def __str__(self):
         return self.PermissionName
@@ -109,5 +129,5 @@ class PermissionsRole(models.Model):
 
     class Meta:
         db_table='PermissionRole'
-        verbose_name='角色权限表'
-        verbose_name_plural="角色权限表"
+        verbose_name='User_角色权限表'
+        verbose_name_plural=verbose_name
